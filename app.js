@@ -2,9 +2,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+require('dotenv').config()
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const portfoliosRouter = require('./routes/portfolios');
+const stocksRouter = require('./routes/stocks');
 
 var app = express();
 
@@ -16,6 +18,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/portfolios', portfoliosRouter);
+app.use('/stocks', stocksRouter);
 
 
 /**

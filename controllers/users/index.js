@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const {Users} = require('../../models/users')
 const bcrupt = require('bcrypt')
+const saltRounds = 7;
+
 
 var createUser = async (userInfo) => {
     var emailExists = await Users.findOne({email: userInfo.email})
@@ -12,9 +14,11 @@ var createUser = async (userInfo) => {
 
 
 var updateUser = async (id, userInfo) => {
+   
+    
     var update = await Users.updateOne({_id: id}, userInfo)
     if(update == null) return "User Not Found"
-    return "User Updated"
+    return update
 } 
 
 
@@ -29,7 +33,7 @@ var deleteUser = async (id) => {
 
 //Grabs users, If id and userInfo is blank then granb
 
-var getUsers = async (id, userInfo) => {
+var getUsers = async ({id, userInfo}) => {
     var correctPass;
     var user;
     if(id == null){
@@ -44,9 +48,7 @@ var getUsers = async (id, userInfo) => {
     
     user = await Users.findById(id)
     if(!user) return "User not Found!"
-    correctPass = await bcrypt.compare(userInfo.password, user['password'])
-    if(!correctPass) return 'Password Incorrect'
     return user
 }
 
-modules.exports = {createUser, updateUser, deleteUser, getUsers}
+module.exports = {createUser, updateUser, deleteUser, getUsers}

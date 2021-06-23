@@ -20,4 +20,10 @@ var getStocks = async (tickers) => {
 }
 
 
-module.exports = {getStocks}
+var topTen = async() => {
+    var topT = await Stocks.find().sort({'overall_score': -1}).limit(10)
+
+    return topT
+}
+
+module.exports = {getStocks, topTen}
