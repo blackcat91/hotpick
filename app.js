@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose')
 require('dotenv').config()
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -21,7 +22,7 @@ app.use('/users', usersRouter);
 app.use('/portfolios', portfoliosRouter);
 app.use('/stocks', stocksRouter);
 
-
+mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true,useUnifiedTopology: true  },() => {console.log('Connected to DB')})
 /**
  * Module dependencies.
  */

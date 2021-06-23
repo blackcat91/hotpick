@@ -23,14 +23,14 @@ router.post('/login', async function(req, res) {
 });
 
 
-router.get('/:id', function(req, res) {
+router.get('/:id', async function(req, res) {
   var request = makeRequest(req)
   var user = await userController.getUsers({id: request.params.id})
   if(typeof user === "String") return res.statusCode(400).send(user)
   res.send(user);
 });
 
-router.post('/register', function(req, res) {
+router.post('/register', async function(req, res) {
   var request = makeRequest(req)
   var user = await userController.createUser(request.body)
   if(typeof user === "String") return res.statusCode(400).send(user)
@@ -38,7 +38,7 @@ router.post('/register', function(req, res) {
   
 });
 
-router.put('/:id', function(req, res) {
+router.put('/:id', async function(req, res) {
   var request = makeRequest(req)
   var user = await userController.updateUser(request.params.id, request.body)
   if(typeof user === "String") return res.statusCode(400).send(user)
@@ -47,7 +47,7 @@ router.put('/:id', function(req, res) {
 
 });
 
-router.delete('/', function(req, res) {
+router.delete('/', async function(req, res) {
   var request = makeRequest(req)
   var user = await userController.deleteUser(request.body.id)
   if(typeof user === "String") return res.statusCode(400).send(user)

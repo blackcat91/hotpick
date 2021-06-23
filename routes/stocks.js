@@ -21,7 +21,7 @@ router.post('/topTen', async function(req, res) {
   });
 
 
-router.get('/:id', function(req, res) {
+router.get('/:id', async function(req, res) {
     
     var stock = await stocksController.getStocks(req.params.id)
     if(typeof stock === "String") return res.statusCode(400).send(stock)
