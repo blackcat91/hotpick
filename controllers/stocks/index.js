@@ -22,7 +22,7 @@ var getStocks = async (tickers) => {
 
 var topTen = async() => {
     var topT = await Stocks.find().sort({'overall_score': -1}).limit(10)
-
+    if(!topT)  return 'Error Retrieving Top Ten!'
     return topT
 }
 

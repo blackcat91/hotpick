@@ -25,7 +25,8 @@ var  getPortfolios = async (ids) => {
 
 var createPortfolio = async (portfolioInfo) => {
     var portfolio = new Portfolio(portfolioInfo)
-    return portfolio
+    var savedPortfolio = await portfolio.save()
+    return savedPortfolio
 
 }
 
