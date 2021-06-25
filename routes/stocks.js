@@ -6,14 +6,14 @@ const stocksController = require('../controllers/stocks')
 
 /* GET users listing. */
 router.post('/', async function(req, res) {
-  var user = await stocksController.getStocks(req.body.ids)
+  var user = await stocksController.getStocks(req.body.tickers)
   if(typeof user === "String") return res.statusCode(400).send(user)
   res.send(user);
   
 });
 
 
-router.post('/topTen', async function(req, res) {
+router.get('/topTen', async function(req, res) {
     var stocks = await stocksController.topTen()
     if(typeof stocks === "String") return res.statusCode(400).send(stocks)
     res.send(stocks);
@@ -21,9 +21,9 @@ router.post('/topTen', async function(req, res) {
   });
 
 
-router.get('/:id', async function(req, res) {
+router.get('/:ticker', async function(req, res) {
     
-    var stock = await stocksController.getStocks(req.params.id)
+    var stock = await stocksController.getStocks(req.params.ticker)
     if(typeof stock === "String") return res.statusCode(400).send(stock)
   res.send(stock);
 });
