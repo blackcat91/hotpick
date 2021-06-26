@@ -8,26 +8,18 @@ var stocksSchema = mongoose.Schema({
         min: 3,
         max: 6
     },
-    company_name: {
-        type: String,
-        required: true
-        
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    momentum_score: {
+
+    momentum: {
         type: Number,
         default: []
         
     },
-    value_score: {
+    value: {
         type: Number,
      
         
     },
-    overall_score: {
+    overall: {
         type: Number,
         
         

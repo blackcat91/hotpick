@@ -12,7 +12,7 @@ var getStocks = async (tickers) => {
     var stocks = []
     var i;
     for(i=0; i < tickers.length ; i++){
-        stock = await Stocks.findOne({ticker: tickers[i]})
+        stock = await Stocks.findOne({ticker: tickers[i].toUpperCase()})
         if(!stock) continue
         stocks.append(stock)
     }
@@ -21,7 +21,7 @@ var getStocks = async (tickers) => {
 
 
 var topTen = async() => {
-    var topT = await Stocks.find().sort({'overall_score': -1}).limit(10)
+    var topT = await Stocks.find().sort({'overall': -1}).limit(10)
     if(!topT)  return 'Error Retrieving Top Ten!'
     return topT
 }

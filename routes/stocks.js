@@ -23,7 +23,7 @@ router.get('/topTen', async function(req, res) {
 
 router.get('/:ticker', async function(req, res) {
     
-    var stock = await stocksController.getStocks(req.params.ticker)
+    var stock = await stocksController.getStocks([req.params.ticker.toUpperCase()])
     if(typeof stock === "String") return res.statusCode(400).send(stock)
   res.send(stock);
 });
