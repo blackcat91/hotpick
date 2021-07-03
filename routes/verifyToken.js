@@ -2,14 +2,12 @@ const jwt = require('jsonwebtoken')
 
 
 var verify = (req, res, next) => {
-    const token = req.header('X-Auth-Token');
-    if(!token) return res.status(401).send('Access Denied')
-
+  
 
     try{
+        let token = req.body.token
         const verified = jwt.verify(token, process.env.SECRET)
-        req.user = verified
-        next()
+        res.send(verified)
      
     }
     catch(err) {

@@ -8,6 +8,12 @@ var portfolioSchema = mongoose.Schema({
         min: 3,
         max: 255
     },
+    userID: {
+        type: String,
+        required: true,
+        min: 3,
+        max: 255
+    },
     heat_score: {
         type: Number,
         

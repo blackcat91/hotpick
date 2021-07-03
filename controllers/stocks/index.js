@@ -14,11 +14,35 @@ var getStocks = async (tickers) => {
     for(i=0; i < tickers.length ; i++){
         stock = await Stocks.findOne({ticker: tickers[i].toUpperCase()})
         if(!stock) continue
-        stocks.append(stock)
+        stocks.push(stock)
     }
     return stocks
 }
 
+var searchStocks = async (ticker) => {
+    var stocks;
+    console.log(ticker)
+    let regexp = new RegExp(ticker, 'i')
+    stocks = await Stocks.find({ticker : regexp})
+    if(!stocks) return 'Stock not found!'
+        
+   
+    return stocks
+}
+
+
+var paginatedStocks = async (startID) => {
+    let stocks;
+    if(!startID){
+        stocks = Stocks.find().limit(15).sort({'ticker': 1})
+        
+        return stocks
+    }
+    
+    stocks = Stocks.find({_id: {$gt: startID}}).limit(15).sort({'ticker': 1})
+    console.log(startID)
+    return stocks
+}
 
 var topTen = async() => {
     var topT = await Stocks.find().sort({'overall': -1}).limit(10)
@@ -26,4 +50,4 @@ var topTen = async() => {
     return topT
 }
 
-module.exports = {getStocks, topTen}
+module.exports = {getStocks, topTen, paginatedStocks, searchStocks}

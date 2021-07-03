@@ -7,7 +7,7 @@ const portfolioController = require('../controllers/portfolios')
 /* GET users listing. */
 router.get('/', async function(req, res) {
   var portfolios = await portfolioController.getPortfolios()
-  if(typeof portfolios === "String") return res.statusCode(400).send(portfolios)
+  if(typeof portfolios == "string") return res.status(400).send(portfolios)
   res.send(portfolios);
   
 });
@@ -15,21 +15,21 @@ router.get('/', async function(req, res) {
 router.get('/:id', async function(req, res) {
   
   var portfolio = await portfolioController.getPortfolios([req.params.id])
-  if(typeof portfolio === "String") return res.statusCode(400).send(portfolio)
+  if(typeof portfolio == "string") return res.status(400).send(portfolio)
   res.send(portfolio);
 });
 
 router.post('/', async function(req, res) {
   
   var portfolio = await portfolioController.getPortfolios([req.body.ids])
-  if(typeof portfolio === "String") return res.statusCode(400).send(portfolio)
+  if(typeof portfolio == "string") return res.status(400).send(portfolio)
   res.send(portfolio);
 });
 
 router.post('/create', async function(req, res) {
   
   var portfolio = await portfolioController.createPortfolio(req.body)
-  if(typeof portfolio === "String") return res.statusCode(400).send(portfolio)
+  if(typeof portfolio == "string") return res.status(400).send(portfolio)
   res.send(portfolio);
 });
 
@@ -37,7 +37,7 @@ router.post('/create', async function(req, res) {
 router.delete('/', async function(req, res) {
   
   var portfolio = await portfolioController.deletePortfolio(req.body.id)
-  if(portfolio == "Portfolio Not Found") return res.statusCode(400).send(portfolio)
+  if(portfolio == "Portfolio Not Found") return res.status(400).send(portfolio)
   res.send(portfolio);
 });
 
@@ -45,14 +45,14 @@ router.delete('/', async function(req, res) {
 router.put('/add', async function(req, res) {
   
   var portfolio = await portfolioController.addStock(req.body.pId, req.body.ticker)
-  if(portfolio != "Stock Added") return res.statusCode(400).send(portfolio)
+  if(portfolio != "Stock Added") return res.status(400).send(portfolio)
   res.send(portfolio);
 });
 
 router.put('/remove', async function(req, res) {
   
   var portfolio = await portfolioController.removeStock(req.body.pId, req.body.ticker)
-  if(portfolio != "Stock Removed") return res.statusCode(400).send(portfolio)
+  if(portfolio != "Stock Removed") return res.status(400).send(portfolio)
   res.send(portfolio);
 });
 

@@ -2,14 +2,14 @@
 
 const Joi = require('joi')
 
-const registerValidation = async (req, res) => {
+const registerValidation = (userInfo) => {
     const schema = Joi.object({
-        name: Joi.string().min(6).required(),
+        username: Joi.string().min(6).required(),
         email:  Joi.string().min(6).required().email(),
         password: Joi.string().min(6).required()
     });
 
-    return schema.validate(req.body);
+    return schema.validate(userInfo);
 
 }
 

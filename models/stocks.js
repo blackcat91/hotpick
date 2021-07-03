@@ -5,6 +5,7 @@ var stocksSchema = mongoose.Schema({
     ticker: {
         type: String,
         required: true,
+        unique: true,
         min: 3,
         max: 6
     },

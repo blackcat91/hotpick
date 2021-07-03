@@ -10,7 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const portfoliosRouter = require('./routes/portfolios');
 const stocksRouter = require('./routes/stocks');
-
+const {verify} = require('./routes/verifyToken')
 var app = express();
 
 
@@ -25,6 +25,7 @@ app.use(helmet())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.post('/verify', verify);
 app.use('/portfolios', portfoliosRouter);
 app.use('/stocks', stocksRouter);
 

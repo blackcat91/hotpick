@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const {Users} = require('../../models/users')
-const bcrupt = require('bcrypt')
+const bcrypt = require('bcrypt')
 var {registerValidation, loginValidation} = require('../../helpers/validation')
 const saltRounds = 7;
 
@@ -8,7 +8,7 @@ const saltRounds = 7;
 var createUser = async (userInfo) => {
     
     const {error} = registerValidation(userInfo)
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error) return error.details[0].message;
     var emailExists = await Users.findOne({email: userInfo.email})
     if(emailExists) return 'Email Already Exists'
     userInfo.password = await bcrypt.hash(userInfo.password, saltRounds);
@@ -44,7 +44,7 @@ var getUsers = async ({id, userInfo}) => {
     if(id == null){
         if(userInfo == null) return "Please pass some data."
         const {error} = loginValidation(userInfo)
-        if(error) return res.status(400).send(error.details[0].message);
+        if(error) return error.details[0].message;
         user = await Users.findOne({email : userInfo.email})
         if(!user) return "User not Found!"
         correctPass = await bcrypt.compare(userInfo.password, user['password'])
@@ -58,4 +58,17 @@ var getUsers = async ({id, userInfo}) => {
     return user
 }
 
-module.exports = {createUser, updateUser, deleteUser, getUsers}
+
+
+var logOut = async (token) => {
+    try {
+        await Users.updateOne({jwt: token}, {jwt: null})
+        return 'Logout Successful'
+    }
+    catch(err){
+        return 'Logout Failed!'
+    }
+    
+}
+
+module.exports = {createUser, updateUser, deleteUser, getUsers, logOut}
